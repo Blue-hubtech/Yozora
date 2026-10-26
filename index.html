@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Yozora – anime discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Shippori+Mincho:wght@600;800&display=swap">
+<style>
+:root{--bg:#f6f1ff;--sf:#fff;--tx:#241c40;--mu:#6d6590;--ac:#d6336c;--ac2:#0b8a79;--ln:#ded5f5;--on:#fff;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16112a;--sf:#221a3d;--tx:#f1ecff;--mu:#a79fc9;--ac:#ff7eb6;--ac2:#7ee0d0;--ln:#352b57;--on:#16112a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#16112a;--sf:#221a3d;--tx:#f1ecff;--mu:#a79fc9;--ac:#ff7eb6;--ac2:#7ee0d0;--ln:#352b57;--on:#16112a;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:400 16px/1.55 Figtree,system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+h1,h2,h3{font-family:"Shippori Mincho",Georgia,serif;margin:0;line-height:1.15}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:14px 28px;padding:18px 0}
+.logo{font:800 26px "Shippori Mincho",Georgia,serif;letter-spacing:.02em}
+.logo span{color:var(--ac)}
+nav{display:flex;gap:6px}
+nav a{padding:6px 12px;border-radius:99px;color:var(--mu);font-weight:600}
+nav a.on{background:var(--sf);color:var(--tx);box-shadow:inset 0 0 0 1px var(--ln)}
+.search{margin-left:auto;flex:1 1 220px;max-width:340px;padding:10px 16px;border-radius:99px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);font:inherit}
+.hero{position:relative;overflow:hidden;border-radius:22px;padding:56px 40px;margin:8px 0 36px;min-height:360px;display:flex;flex-direction:column;justify-content:center;gap:16px;color:#fff}
+.hero .big{position:absolute;right:3%;top:50%;transform:translateY(-50%);font:800 min(52vw,380px)/1 "Shippori Mincho",serif;color:transparent;-webkit-text-stroke:2px rgba(255,255,255,.35);user-select:none;pointer-events:none}
+.hero>*:not(.big){position:relative;max-width:560px}
+.hero h1{font-size:clamp(32px,6vw,56px);font-weight:800}
+.hero p{margin:0;opacity:.92}
+.btns{display:flex;gap:10px;flex-wrap:wrap}
+.btn{border:0;cursor:pointer;font:600 15px Figtree,sans-serif;padding:11px 20px;border-radius:99px;background:var(--ac);color:var(--on)}
+.btn.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 1.5px currentColor}
+.btn.on{background:var(--ac2);color:var(--on);box-shadow:none}
+section{margin:0 0 38px}
+section>h2{font-size:26px;margin-bottom:14px}
+.row{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x proximity;padding-bottom:10px}
+.row .card{flex:0 0 160px;scroll-snap-align:start}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:20px 16px}
+.poster{aspect-ratio:2/3;border-radius:14px;display:grid;place-items:center;overflow:hidden;color:rgba(255,255,255,.9)}
+.poster i{font:800 76px/1 "Shippori Mincho",serif;font-style:normal}
+.poster img{width:100%;height:100%;object-fit:cover}
+.card h3{font:600 15px Figtree,sans-serif;margin:9px 0 2px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card p{margin:0;display:flex;gap:10px;color:var(--mu);font-size:14px}
+.card p b{color:var(--ac2)}
+.card:hover .poster{outline:2px solid var(--ac)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:22px}
+.chip{border:1px solid var(--ln);background:var(--sf);color:var(--tx);border-radius:99px;padding:6px 14px;font:600 14px Figtree,sans-serif;cursor:pointer}
+.chip.on{background:var(--ac);color:var(--on);border-color:var(--ac)}
+select{margin-left:auto;padding:8px 12px;border-radius:10px;border:1px solid var(--ln);background:var(--sf);color:var(--tx);font:inherit}
+.detail{display:grid;grid-template-columns:minmax(0,260px) 1fr;gap:34px;margin:12px 0 40px}
+.detail h1{font-size:clamp(30px,5vw,48px);margin-bottom:10px}
+.meta{display:flex;flex-wrap:wrap;gap:18px;color:var(--mu);margin-bottom:16px}
+.meta b{color:var(--ac2);font-size:18px}
+.detail p{max-width:62ch}
+.gen{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+.gen span{border:1px solid var(--ln);border-radius:99px;padding:3px 12px;font-size:14px;color:var(--mu)}
+.empty{padding:50px 0;color:var(--mu)}
+footer{border-top:1px solid var(--ln);padding:22px 0 30px;color:var(--mu);font-size:14px}
+@media (prefers-reduced-motion:no-preference){.hero .big{animation:rise .9s ease-out both}@keyframes rise{from{opacity:0;transform:translateY(-44%)}}}
+@media (max-width:700px){.detail{grid-template-columns:1fr}.detail .poster{max-width:220px}.hero{padding:36px 24px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <a class="logo" href="#home">Yozora<span>.</span></a>
+  <nav><a href="#home" data-n="home">Home</a><a href="#browse" data-n="browse">Browse</a><a href="#watchlist" data-n="watchlist">Watchlist <span id="cnt"></span></a><a href="#account" data-n="account">Account</a></nav>
+  <input id="q" class="search" type="search" placeholder="Search anime" aria-label="Search anime">
+</header>
+<main id="app"></main>
+<footer id="foot"></footer>
+</div>
+<script>
+var S=['Watching','Plan to watch','Completed'];
+var SRC='sample';
+// id,title,year,score,episodes,genres,glyph,color1,color2,synopsis
+var RAW=[
+[1,"Frieren: Beyond Journey’s End",2023,9.3,28,["Adventure","Fantasy","Drama"],"葬","#3b6fb6","#1b2a5c","An elf mage outlives her adventuring party and sets out to understand the people she took for granted."],
+[2,"Demon Slayer",2019,8.4,26,["Action","Fantasy"],"鬼","#c2185b","#2a0f3a","A boy becomes a demon hunter to cure his sister and avenge his family."],
+[3,"Jujutsu Kaisen",2020,8.6,24,["Action","Supernatural"],"呪","#5a3fd0","#120a2e","A student swallows a cursed object and joins a school of sorcerers."],
+[4,"Attack on Titan",2013,9.0,25,["Action","Drama","Mystery"],"巨","#8a6a3a","#2b1d12","Humanity hides behind walls from giants, until the walls fall."],
+[5,"Fullmetal Alchemist: Brotherhood",2009,9.1,64,["Adventure","Fantasy","Action"],"錬","#d08a2a","#4a1f12","Two brothers search for the Philosopher’s Stone to undo a failed ritual."],
+[6,"Spy x Family",2022,8.6,25,["Comedy","Action"],"家","#e0709a","#52206b","A spy, an assassin and a telepath pose as a family for the sake of the mission."],
+[7,"Chainsaw Man",2022,8.3,12,["Action","Horror"],"電","#d9432f","#2b0d10","A broke devil hunter merges with his pet devil and gets a second chance."],
+[8,"Your Name",2016,8.9,1,["Romance","Drama","Fantasy"],"君","#f08a6b","#2b3a8c","Two strangers swap bodies and start leaving each other notes."],
+[9,"Cowboy Bebop",1998,8.9,26,["Action","Sci-Fi"],"銃","#2f8f9d","#161d3a","Bounty hunters drift through space chasing criminals and their own pasts."],
+[10,"Vinland Saga",2019,8.8,24,["Action","Adventure","Drama"],"海","#4d7a5a","#14262a","A young Viking trades revenge for a search for a peaceful land."],
+[11,"Steins;Gate",2011,9.1,24,["Sci-Fi","Thriller"],"時","#6c7a89","#1a1f33","A self-styled mad scientist discovers a way to send messages to the past."],
+[12,"Mob Psycho 100",2016,8.5,12,["Comedy","Supernatural","Action"],"霊","#38b6a8","#3a1a5e","A powerful psychic tries to live a normal middle-school life."],
+[13,"Violet Evergarden",2018,8.5,13,["Drama","Fantasy"],"花","#7a8fd6","#2a2250","A former soldier writes letters for others and learns what feelings are."],
+[14,"Haikyu!!",2014,8.7,25,["Sports","Comedy","Drama"],"飛","#e8962e","#14315c","A short boy with big jumps joins a volleyball team of misfits."]
+];
+var DATA=RAW.map(function(r){return{id:r[0],t:r[1],y:r[2],s:r[3],e:r[4],g:r[5],gl:r[6],c1:r[7],c2:r[8],d:r[9]}});
+var wl={};try{wl=JSON.parse(localStorage.getItem('yz-wl')||'{}')}catch(e){wl={}}
+function save(){try{localStorage.setItem('yz-wl',JSON.stringify(wl))}catch(e){}}
+var st={q:'',g:'',sort:'score'};
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function poster(a){return '<div class="poster" style="background:linear-gradient(155deg,'+a.c1+','+a.c2+')">'+(a.img?'<img src="'+esc(a.img)+'" alt="" loading="lazy">':'<i>'+esc(a.gl)+'</i>')+'</div>'}
+function card(a){return '<a class="card" href="#a-'+a.id+'">'+poster(a)+'<h3>'+esc(a.t)+'</h3><p><span>'+a.y+'</span><b>'+a.s.toFixed(1)+'</b></p></a>'}
+function row(title,list){return '<section><h2>'+title+'</h2><div class="row">'+list.map(card).join('')+'</div></section>'}
+function stBtns(a){return '<div class="btns">'+S.map(function(s){return '<button class="btn ghost'+(wl[a.id]===s?' on':'')+'" data-st="'+s+'" data-id="'+a.id+'">'+s+'</button>'}).join('')+'</div>'}
+function home(){
+  var a=DATA[0],top=DATA.slice().sort(function(x,y){return y.s-x.s});
+  return '<div class="hero" style="background:linear-gradient(120deg,'+a.c1+','+a.c2+')"><div class="big" aria-hidden="true">'+esc(a.gl)+'</div><h1>'+esc(a.t)+'</h1><p>'+esc(a.d)+'</p><div class="btns"><a class="btn" href="#a-'+a.id+'" style="background:#fff;color:#241c40">View details</a><button class="btn ghost" data-st="Plan to watch" data-id="'+a.id+'">'+(wl[a.id]?'On your watchlist':'Add to watchlist')+'</button></div></div>'
+   +row('Trending now',DATA)+row('Top rated',top);
+}
+function browse(){
+  var gs=[],seen={};DATA.forEach(function(a){a.g.forEach(function(g){if(!seen[g]){seen[g]=1;gs.push(g)}})});gs.sort();
+  var l=DATA.filter(function(a){return(!st.g||a.g.indexOf(st.g)>-1)&&(!st.q||a.t.toLowerCase().indexOf(st.q.toLowerCase())>-1)});
+  l.sort(function(x,y){return st.sort==='year'?y.y-x.y:st.sort==='title'?x.t.localeCompare(y.t):y.s-x.s});
+  return '<h2 style="margin-bottom:16px;font-size:30px">Browse</h2><div class="bar"><button class="chip'+(st.g?'':' on')+'" data-g="">All</button>'
+   +gs.map(function(g){return '<button class="chip'+(st.g===g?' on':'')+'" data-g="'+g+'">'+g+'</button>'}).join('')
+   +'<select id="sort" aria-label="Sort by"><option value="score"'+(st.sort==='score'?' selected':'')+'>Highest rated</option><option value="year"'+(st.sort==='year'?' selected':'')+'>Newest</option><option value="title"'+(st.sort==='title'?' selected':'')+'>Title A–Z</option></select></div>'
+   +(l.length?'<div class="grid">'+l.map(card).join('')+'</div>':'<p class="empty">Nothing matches. Clear the search or pick another genre.</p>');
+}
+function detail(id){
+  var a=DATA.filter(function(x){return String(x.id)===id})[0];
+  if(!a)return '<p class="empty">That title isn’t here. <a href="#browse" style="color:var(--ac)">Back to browse</a></p>';
+  var sim=DATA.filter(function(x){return x.id!==a.id&&x.g.some(function(g){return a.g.indexOf(g)>-1})}).slice(0,8);
+  return '<div class="detail">'+poster(a)+'<div><h1>'+esc(a.t)+'</h1><div class="meta"><span>'+a.y+'</span><span>'+a.e+' episode'+(a.e===1?'':'s')+'</span><span><b>'+a.s.toFixed(1)+'</b> / 10</span></div><p>'+esc(a.d)+'</p><div class="gen">'+a.g.map(function(g){return '<span>'+esc(g)+'</span>'}).join('')+'</div>'+stBtns(a)
+   +'<p style="margin-top:18px"><a href="https://www.crunchyroll.com/search?q='+encodeURIComponent(a.t)+'" target="_blank" rel="noopener" style="color:var(--ac);font-weight:600">Find where to watch legally</a></p></div></div>'+(sim.length?row('More like this',sim):'');
+}
+function watchlist(){
+  var out='<h2 style="margin-bottom:20px;font-size:30px">Your watchlist</h2>',n=0;
+  S.forEach(function(s){var l=DATA.filter(function(a){return wl[a.id]===s});if(l.length){n+=l.length;out+='<section><h2>'+s+'</h2><div class="grid">'+l.map(card).join('')+'</div></section>'}});
+  return n?out:out+'<p class="empty">Nothing saved yet. Open a title and choose Watching, Plan to watch or Completed.</p>';
+}
+function route(){
+  var h=location.hash.slice(1)||'home',v,n=h;
+  if(h.indexOf('a-')===0){loadOne(h.slice(2));v=detail(h.slice(2));n=''}
+  else if(h==='browse')v=browse();
+  else if(h==='watchlist')v=watchlist();else if(h==='account')v=account();
+  else{v=home();n='home'}
+  document.getElementById('app').innerHTML=v;
+  document.querySelectorAll('nav a').forEach(function(a){a.classList.toggle('on',a.dataset.n===n)});
+  var c=Object.keys(wl).length;document.getElementById('cnt').textContent=c?'('+c+')':'';
+  document.getElementById('foot').textContent=SRC==='live'?'Data from AniList.':'Sample data. Start the Yozora server to load live titles from AniList.';
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('[data-st]');
+  if(b){var id=b.dataset.id;if(wl[id]===b.dataset.st)delete wl[id];else wl[id]=b.dataset.st;save();sync(id);route();return}
+  var g=e.target.closest('[data-g]');
+  if(g){st.g=g.dataset.g;route()}
+});
+document.addEventListener('change',function(e){if(e.target.id==='sort'){st.sort=e.target.value;route()}});
+document.getElementById('q').addEventListener('input',function(e){
+  st.q=e.target.value;
+  srv(st.q);if(location.hash!=='#browse')location.hash='browse';else route();
+});
+window.addEventListener('hashchange',function(){route();window.scrollTo(0,0)});
+route();
+// ---------- backend connection ----------
+var token=null,user=null;
+try{token=localStorage.getItem('yz-t');user=localStorage.getItem('yz-u')}catch(e){}
+function api(p,o){o=o||{};o.headers=Object.assign({'Content-Type':'application/json'},o.headers||{});if(token)o.headers.Authorization='Bearer '+token;
+  return fetch('/api'+p,o).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error(j.error||'Request failed');return j})})}
+function sync(id){if(!token)return Promise.resolve();var a=DATA.filter(function(x){return String(x.id)===String(id)})[0];
+  var p=wl[id]?api('/watchlist/'+id,{method:'PUT',body:JSON.stringify({status:wl[id],anime:a})}):api('/watchlist/'+id,{method:'DELETE'});
+  return p.catch(function(){})}
+function pull(){if(!token)return;api('/watchlist').then(function(j){wl={};j.items.forEach(function(i){wl[i.id]=i.status;if(!DATA.some(function(x){return x.id===i.id}))DATA.push(i.anime)});save();route()})
+  .catch(function(){token=null;user=null;try{localStorage.removeItem('yz-t');localStorage.removeItem('yz-u')}catch(e){}})}
+var tried={};
+function loadOne(id){if(SRC!=='live'||tried[id]||DATA.some(function(x){return String(x.id)===id}))return;tried[id]=1;
+  api('/anime/'+encodeURIComponent(id)).then(function(j){DATA.push(j.item);route()}).catch(function(){})}
+var tm;function srv(q){clearTimeout(tm);if(SRC!=='live'||q.length<3)return;
+  tm=setTimeout(function(){api('/anime?search='+encodeURIComponent(q)).then(function(j){var n=0;j.items.forEach(function(x){if(!DATA.some(function(d){return d.id===x.id})){DATA.push(x);n++}});if(n&&location.hash==='#browse')route()}).catch(function(){})},350)}
+function account(){var h='<h2 style="margin-bottom:16px;font-size:30px">Account</h2>';
+  if(user)return h+'<p>Signed in as <b>'+esc(user)+'</b>. Your watchlist syncs across devices.</p><button class="btn" data-act="logout">Log out</button>';
+  return h+'<div style="display:grid;gap:10px;max-width:340px"><input id="u" class="search" style="max-width:none" placeholder="Username" autocomplete="username" aria-label="Username"><input id="p" class="search" style="max-width:none" type="password" placeholder="Password, 8 characters or more" autocomplete="current-password" aria-label="Password"><div class="btns"><button class="btn" data-act="login">Log in</button><button class="btn ghost" data-act="register">Create account</button></div><p id="msg" style="margin:0;color:var(--ac)"></p></div>'}
+document.addEventListener('click',function(e){var b=e.target.closest('[data-act]');if(!b)return;var act=b.dataset.act;
+  if(act==='logout'){token=null;user=null;wl={};try{localStorage.removeItem('yz-t');localStorage.removeItem('yz-u');localStorage.removeItem('yz-wl')}catch(x){}route();return}
+  api('/auth/'+act,{method:'POST',body:JSON.stringify({username:document.getElementById('u').value,password:document.getElementById('p').value})}).then(function(j){
+    token=j.token;user=j.username;try{localStorage.setItem('yz-t',token);localStorage.setItem('yz-u',user)}catch(x){}
+    Promise.all(Object.keys(wl).map(sync)).then(function(){pull();location.hash='watchlist'})
+  }).catch(function(err){document.getElementById('msg').textContent=err.message})});
+api('/anime?sort=TRENDING_DESC&perPage=40').then(function(j){if(j.items&&j.items.length){DATA=j.items;SRC='live';route();pull()}}).catch(function(){});
+</script>
+</body>
+</html>
