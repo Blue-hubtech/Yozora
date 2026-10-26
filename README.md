@@ -28,3 +28,8 @@ on a persistent disk, or swap SQLite for Postgres if you need to scale out.
 - AniList responses are cached in memory for 10 minutes to stay under its rate limit.
 - Passwords are hashed with bcrypt, auth routes are rate limited, and Helmet sets security headers.
 - Episodes are not streamed here. Detail pages link out to legal sources.
+
+## GitHub Pages (static, no backend)
+`.github/workflows/pages.yml` publishes `public/` to GitHub Pages. With no backend present,
+the page calls AniList directly from the browser and keeps the watchlist in localStorage
+(no accounts). In your repo: Settings -> Pages -> Source: GitHub Actions, then push to `main`.
